@@ -221,27 +221,5 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             )
 
         }
-
-        mMap.setOnMapLongClickListener { latLng ->
-            val snippet = String.format(
-                Locale.getDefault(),
-                "Lat: %1$.5f, Long: %2$.5f",
-                latLng.latitude,
-                latLng.longitude
-            )
-            if (currentMarker != null) {
-                currentMarker?.remove()
-                currentPOI = null
-            }
-
-            binding.faConfirm.visibility = View.VISIBLE
-            currentMarker = mMap.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title(getString(R.string.dropped_pin))
-                    .snippet(snippet)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-            )
-        }
     }
 }
