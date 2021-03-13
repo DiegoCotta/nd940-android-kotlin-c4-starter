@@ -38,9 +38,10 @@ class MyApp : MultiDexApplication() {
                     get() as ReminderDataSource
                 )
             }
+            single { LocalDB.createRemindersDao(this@MyApp) }
             single { RemindersLocalRepository(get()) as ReminderDataSource }
             single { AuthenticationViewModel(get()) }
-            single { LocalDB.createRemindersDao(this@MyApp) }
+
         }
 
         startKoin {
