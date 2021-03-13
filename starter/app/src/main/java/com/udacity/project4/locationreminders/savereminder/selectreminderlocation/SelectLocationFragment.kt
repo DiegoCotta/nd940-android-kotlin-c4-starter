@@ -78,6 +78,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             _viewModel.latitude.postValue(currentMarker?.position?.latitude)
             _viewModel.longitude.postValue(currentMarker?.position?.longitude)
             _viewModel.selectedPOI.postValue(currentPOI)
+            _viewModel.reminderSelectedLocationStr.postValue(currentPOI!!.name)
             _viewModel.navigationCommand.postValue(NavigationCommand.Back)
         }
 
@@ -111,6 +112,16 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        if (_viewModel.selectedPOI.value != null) {
+            currentPOI = _viewModel.selectedPOI.value
+            currentMarker = mMap.addMarker(
+                MarkerOptions()
+                    .position(_viewModel.selectedPOI.value!!.latLng)
+                    .title(_viewModel.selectedPOI.value!!.name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            )
+        }
+
         enableMyLocation()
         onLocationSelected()
     }
@@ -206,17 +217,17 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private fun onLocationSelected() {
 
         mMap.setOnPoiClickListener { pointOfInterest ->
-            currentPOI = pointOfInterest
+
             val currentLocation = pointOfInterest.latLng
             binding.faConfirm.visibility = View.VISIBLE
             if (currentMarker != null) {
                 currentMarker?.remove()
-                currentPOI = null
             }
+            currentPOI = pointOfInterest
             currentMarker = mMap.addMarker(
                 MarkerOptions()
                     .position(currentLocation)
-                    .title(getString(R.string.dropped_pin))
+                    .title(pointOfInterest.name)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             )
 
