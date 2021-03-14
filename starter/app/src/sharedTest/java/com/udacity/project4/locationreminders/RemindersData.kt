@@ -1,6 +1,7 @@
 package com.udacity.project4.locationreminders
 
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
+import com.udacity.project4.locationreminders.reminderslist.ReminderDataItem
 
 object RemindersData {
     val listReminders = arrayListOf(
@@ -26,4 +27,15 @@ object RemindersData {
             -122.0881
         )
     )
+
+    val reminderDataItem =
+        ReminderDataItem(
+            "some title",
+            "some Description",
+            "Shoreline Bay Trailhead",
+            37.4324,
+            -122.0868
+        )
+
+
 }

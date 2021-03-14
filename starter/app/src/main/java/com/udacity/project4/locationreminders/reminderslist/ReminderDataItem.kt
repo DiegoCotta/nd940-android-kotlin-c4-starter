@@ -13,4 +13,13 @@ data class ReminderDataItem(
     var latitude: Double?,
     var longitude: Double?,
     val id: String = UUID.randomUUID().toString()
-) : Serializable
+) : Serializable {
+    fun clone() = ReminderDataItem(
+        title = this.title,
+        description = this.description,
+        location = this.location,
+        latitude = this.latitude,
+        longitude = this.longitude,
+        id = this.id
+    )
+}
