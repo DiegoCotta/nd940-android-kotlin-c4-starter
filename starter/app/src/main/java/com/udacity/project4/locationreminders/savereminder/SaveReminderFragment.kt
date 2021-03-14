@@ -187,9 +187,11 @@ class SaveReminderFragment : BaseFragment() {
             }
         }
         locationSettingsResponseTask.addOnCompleteListener {
-            if (it.isSuccessful && reminderDataItem != null) {
+            if (it.isSuccessful && reminderDataItem?.latitude != null)
                 addGeofence(reminderDataItem)
-            }
+            else
+                Toast.makeText(context, getString(R.string.select_location), Toast.LENGTH_LONG)
+                    .show()
         }
     }
 

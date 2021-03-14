@@ -98,7 +98,6 @@ class ReminderListFragmentTest : AutoCloseKoinTest() {
 
         onView(withId(R.id.addReminderFAB)).perform(click())
 
-
         verify(navController).navigate(
             ReminderListFragmentDirections.toSaveReminder()
         )
@@ -124,6 +123,7 @@ class ReminderListFragmentTest : AutoCloseKoinTest() {
             dataBindingIdlingResource.monitorFragment(scenario)
 
             onView(withId(R.id.reminderssRecyclerView)).check( RecyclerViewItemCountAssertion(1))
+            onView(withText(reminder.title)).check(matches(isDisplayed()))
         }
     }
 }
